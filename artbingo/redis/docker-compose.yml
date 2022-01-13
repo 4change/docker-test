@@ -1,0 +1,9 @@
+version: '3'
+services:
+  artbingo-redis:
+    image: redis:6.0
+    ports:
+      - 16379:6379
+    restart: always
+    container_name: artbingo-redis
+    hostname: artbingo-redis

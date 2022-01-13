@@ -1,0 +1,21 @@
+version: '3'
+services:
+  artbingo-nacos:
+    image: nacos/nacos-server:1.4.2
+    container_name: artbingo-nacos
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=192.168.11.220
+      - MYSQL_SERVICE_DB_NAME=nacos_config
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=nacos
+      - MYSQL_SERVICE_PASSWORD=nacos
+      - MYSQL_DATABASE_NUM=1
+      - JVM_XMS=512m
+      - JVM_XMX=512m
+      - JVM_XMN=512m
+    ports:
+      - 8848:8848
+    restart: always

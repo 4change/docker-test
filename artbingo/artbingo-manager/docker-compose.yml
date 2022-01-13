@@ -1,0 +1,94 @@
+version: '3'
+services:
+  artbingo-gateway:
+    build:
+      context: ./artbingo-gateway
+    restart: always
+    ports:
+      - 9999:9999
+    container_name: artbingo-gateway
+    hostname: artbingo-gateway
+    image: artbingo-gateway:${TAG}
+    environment:
+      NACOS_HOST: ${NACOS_HOST}
+      NACOS_PORT: ${NACOS_PORT}
+      NACOS_GROUP: ${NACOS_GROUP}
+      NACOS_SERVER_GROUP: ${NACOS_SERVER_GROUP}
+      PROF_ACTIVE: ${PROF_ACTIVE}
+    volumes:
+      - ./logs/artbingo-gateway:/artbingo-gateway/logs
+    networks:
+      - app-net
+
+  artbingo-auth:
+    build:
+      context: ./artbingo-auth
+    restart: always
+    container_name: artbingo-auth
+    hostname: artbingo-auth
+    image: artbingo-auth:${TAG}
+    environment:
+      NACOS_HOST: ${NACOS_HOST}
+      NACOS_PORT: ${NACOS_PORT}
+      NACOS_GROUP: ${NACOS_GROUP}
+      NACOS_SERVER_GROUP: ${NACOS_SERVER_GROUP}
+      PROF_ACTIVE: ${PROF_ACTIVE}
+    volumes:
+      - ./logs/artbingo-auth:/artbingo-auth/logs
+    networks:
+      - app-net
+  artbingo-upms:
+    build:
+      context: ./artbingo-upms-biz
+    restart: always
+    container_name: artbingo-upms
+    hostname: artbingo-upms
+    image: artbingo-upms:${TAG}
+    environment:
+      NACOS_HOST: ${NACOS_HOST}
+      NACOS_PORT: ${NACOS_PORT}
+      NACOS_GROUP: ${NACOS_GROUP}
+      NACOS_SERVER_GROUP: ${NACOS_SERVER_GROUP}
+      PROF_ACTIVE: ${PROF_ACTIVE}
+    volumes:
+      - ./logs/artbingo-upms:/artbingo-upms/logs
+    networks:
+      - app-net
+  artbingo-mng:
+    build:
+      context: ./artbingo-mng
+    restart: always
+    container_name: artbingo-mng
+    hostname: artbingo-mng
+    image: artbingo-mng:${TAG}
+    environment:
+      NACOS_HOST: ${NACOS_HOST}
+      NACOS_PORT: ${NACOS_PORT}
+      NACOS_GROUP: ${NACOS_GROUP}
+      NACOS_SERVER_GROUP: ${NACOS_SERVER_GROUP}
+      PROF_ACTIVE: ${PROF_ACTIVE}
+    volumes:
+      - ./logs/artbingo-mng:/artbingo-mng/logs
+    networks:
+      - app-net
+  artbingo-app:
+    build:
+      context: ./artbingo-app
+    restart: always
+    container_name: artbingo-app
+    hostname: artbingo-app
+    image: artbingo-app:${TAG}
+    environment:
+      NACOS_HOST: ${NACOS_HOST}
+      NACOS_PORT: ${NACOS_PORT}
+      NACOS_GROUP: ${NACOS_GROUP}
+      NACOS_SERVER_GROUP: ${NACOS_SERVER_GROUP}
+      PROF_ACTIVE: ${PROF_ACTIVE}
+    volumes:
+      - ./logs/artbingo-app:/artbingo-app/logs
+    networks:
+      - app-net
+networks:
+  app-net:
+    external: true
+    name: app-network
