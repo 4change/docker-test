@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    command: --config /etc/mongo/mongod.conf
+    ports:
+      - 27017:27017
+      - 27018:27018
+      - 27019:27019
+    volumes:
+      # 挂载数据目录
+      - /media/fly/D/code/docker-test/mongodb/db:/data/db
+      # 挂载日志目录
+      - /media/fly/D/code/docker-test/mongodb/log:/var/log/mongodb
+      # 挂载配置目录
+      - /media/fly/D/code/docker-test/mongodb/config:/etc/mongo
